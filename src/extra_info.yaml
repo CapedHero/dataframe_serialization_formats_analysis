@@ -1,0 +1,59 @@
+# CSV
+
+df.no-compression.csv:
+  format_type: text
+  extra_dependencies: ""
+  applicability: universal
+
+df.gzip.csv:
+  format_type: text
+  extra_dependencies: ""
+  applicability: universal
+
+# JSON
+
+df.no-compression.json:
+  format_type: text
+  extra_dependencies: ""
+  applicability: universal
+
+df.gzip.json:
+  format_type: text
+  extra_dependencies: ""
+  applicability: universal
+
+# YAML
+
+df.no-compression.yaml:
+  format_type: text
+  extra_dependencies: PyYAML
+  applicability: universal
+
+# Parquet
+
+df.no-compression.parquet:
+  format_type: binary
+  extra_dependencies: fastparquet
+  applicability: great
+
+df.gzip.parquet:
+  format_type: binary
+  extra_dependencies: fastparquet
+  applicability: great
+
+df.brotli.parquet:
+  format_type: binary
+  extra_dependencies: fastparquet, brotli
+  applicability: great
+
+df.snappy.parquet:
+  format_type: binary
+  extra_dependencies: fastparquet, python-snappy
+  applicability: great
+
+# Feather
+
+df.no-compression.feather:
+  format_type: binary
+  extra_dependencies: pyarrow (100MB+! Ugh!)
+  applicability: moderate
