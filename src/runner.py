@@ -84,6 +84,7 @@ def _run_df_serializations_pipeline(df: pd.DataFrame, pipeline: List[PipelineIte
             "Serialization Speed (s)": serialization_speed,
             "Size/Speed (KB/s)": serialized_df_size_in_kilobytes / serialization_speed,
             "Format Type": extra_info[file_name]["format_type"],
+            "Applicability": extra_info[file_name]["applicability"],
             "Extra Dependencies": extra_info[file_name]["extra_dependencies"],
         }
 
@@ -94,6 +95,7 @@ def _run_df_serializations_pipeline(df: pd.DataFrame, pipeline: List[PipelineIte
             "Serialization Speed (s)": float,
             "Size/Speed (KB/s)": float,
             "Format Type": str,
+            "Applicability": str,
             "Extra Dependencies": str,
         }
     )
@@ -162,6 +164,6 @@ def _format_report(report: pd.DataFrame) -> str:
         headers="keys",
         tablefmt="rst",
         floatfmt=(None, ",.0f", ",.3f", ",.0f"),
-        colalign=["left", "right", "right", "right", "center", "left"],
+        colalign=["left", "right", "right", "right", "center", "center", "left"],
     )
     return formatted_report

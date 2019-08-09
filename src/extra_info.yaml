@@ -56,4 +56,4 @@ df.snappy.parquet:
 df.no-compression.feather:
   format_type: binary
   extra_dependencies: pyarrow (100MB+! Ugh!)
-  applicability: moderate
+  applicability: limited
