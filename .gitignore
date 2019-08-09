@@ -1,4 +1,8 @@
+__pycache__/
+
+/venv
+
+/.idea
+
 /datasets
 /serialized_dataframes
-/venv
-/.idea
