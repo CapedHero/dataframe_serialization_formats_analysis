@@ -8,14 +8,19 @@ virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Run analysis
+# Run Analysis
 python run_analysis_and_print_report.py datasets/**YOUR-CHOSEN-DATASET-IN-CSV-FROMAT**
 ```
 
 ### Docker
 ```bash
+# Build Image
 docker build -t dataframe_serialization_formats_analysis .
-docker run -it dataframe_serialization_formats_analysis \
+
+# Run Container
+docker run -it \
+  --volume=${PWD}:/dataframe_serialization_formats_analysis \
+  dataframe_serialization_formats_analysis \
   python run_analysis_and_print_report.py datasets/**YOUR-CHOSEN-DATASET-IN-CSV-FROMAT**
 ```
 
@@ -28,8 +33,10 @@ Many great datasets examples can be found on Kaggle:
 ## Report Example
 
 ```text
->>> docker run -it dataframe_serialization_formats_analysis \
->>>   python run_analysis_and_print_report.py datasets/environmental-remediation-sites.csv
+>>> docker run -it \
+      --volume=${PWD}:/dataframe_serialization_formats_analysis \
+      dataframe_serialization_formats_analysis \
+      python run_analysis_and_print_report.py datasets/environmental-remediation-sites.csv
 
 DATASET NAME: environmental-remediation-sites.csv
 =================================================
@@ -89,53 +96,53 @@ memory usage: 147.3 MB
 DATAFRAME SERIALIZATION REPORT - BY SIZE
 ========================================
 
-=========================  ==========================  =========================  ===================  =============  ==========================
-Serialization File           Serialized DF Size (KBs)    Serialization Speed (s)    Size/Speed (KB/s)   Format Type   Extra Dependencies
-=========================  ==========================  =========================  ===================  =============  ==========================
-df.brotli.parquet                               1,892                      0.316                5,984     binary      fastparquet, brotli
-df.gzip.parquet                                 1,911                      0.421                4,539     binary      fastparquet
-df.snappy.parquet                               2,287                      0.212               10,802     binary      fastparquet, python-snappy
-df.no-compression.parquet                       2,579                      0.266                9,712     binary      fastparquet
-df.gzip.csv                                     5,156                      2.345                2,198      text
-df.gzip.json                                   10,150                      6.522                1,556      text
-df.no-compression.csv                          30,907                      1.324               23,343      text
-df.no-compression.feather                      38,187                      0.155              246,269     binary      pyarrow (100MB+! Ugh!)
-df.no-compression.json                         58,880                      0.543              108,470      text
-=========================  ==========================  =========================  ===================  =============  ==========================
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
+Serialization File           Serialized DF Size (KBs)    Serialization Speed (s)    Size/Speed (KB/s)   Format Type    Applicability   Extra Dependencies
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
+df.brotli.parquet                               1,892                      0.383                4,942     binary           great       fastparquet, brotli
+df.gzip.parquet                                 1,911                      0.501                3,814     binary           great       fastparquet
+df.snappy.parquet                               2,287                      0.268                8,538     binary           great       fastparquet, python-snappy
+df.no-compression.parquet                       2,579                      0.329                7,845     binary           great       fastparquet
+df.gzip.csv                                     5,156                      2.729                1,890      text          universal
+df.gzip.json                                   10,150                      6.343                1,600      text          universal
+df.no-compression.csv                          30,907                      3.279                9,425      text          universal
+df.no-compression.feather                      38,187                      0.353              108,106     binary          limited      pyarrow (100MB+! Ugh!)
+df.no-compression.json                         58,880                      0.796               73,960      text          universal
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
 
 
 DATAFRAME SERIALIZATION REPORT - BY SPEED
 =========================================
 
-=========================  ==========================  =========================  ===================  =============  ==========================
-Serialization File           Serialized DF Size (KBs)    Serialization Speed (s)    Size/Speed (KB/s)   Format Type   Extra Dependencies
-=========================  ==========================  =========================  ===================  =============  ==========================
-df.no-compression.feather                      38,187                      0.155              246,269     binary      pyarrow (100MB+! Ugh!)
-df.snappy.parquet                               2,287                      0.212               10,802     binary      fastparquet, python-snappy
-df.no-compression.parquet                       2,579                      0.266                9,712     binary      fastparquet
-df.brotli.parquet                               1,892                      0.316                5,984     binary      fastparquet, brotli
-df.gzip.parquet                                 1,911                      0.421                4,539     binary      fastparquet
-df.no-compression.json                         58,880                      0.543              108,470      text
-df.no-compression.csv                          30,907                      1.324               23,343      text
-df.gzip.csv                                     5,156                      2.345                2,198      text
-df.gzip.json                                   10,150                      6.522                1,556      text
-=========================  ==========================  =========================  ===================  =============  ==========================
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
+Serialization File           Serialized DF Size (KBs)    Serialization Speed (s)    Size/Speed (KB/s)   Format Type    Applicability   Extra Dependencies
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
+df.snappy.parquet                               2,287                      0.268                8,538     binary           great       fastparquet, python-snappy
+df.no-compression.parquet                       2,579                      0.329                7,845     binary           great       fastparquet
+df.no-compression.feather                      38,187                      0.353              108,106     binary          limited      pyarrow (100MB+! Ugh!)
+df.brotli.parquet                               1,892                      0.383                4,942     binary           great       fastparquet, brotli
+df.gzip.parquet                                 1,911                      0.501                3,814     binary           great       fastparquet
+df.no-compression.json                         58,880                      0.796               73,960      text          universal
+df.gzip.csv                                     5,156                      2.729                1,890      text          universal
+df.no-compression.csv                          30,907                      3.279                9,425      text          universal
+df.gzip.json                                   10,150                      6.343                1,600      text          universal
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
 
 
 DATAFRAME SERIALIZATION REPORT - BY SIZE/SPEED
 ==============================================
 
-=========================  ==========================  =========================  ===================  =============  ==========================
-Serialization File           Serialized DF Size (KBs)    Serialization Speed (s)    Size/Speed (KB/s)   Format Type   Extra Dependencies
-=========================  ==========================  =========================  ===================  =============  ==========================
-df.no-compression.feather                      38,187                      0.155              246,269     binary      pyarrow (100MB+! Ugh!)
-df.no-compression.json                         58,880                      0.543              108,470      text
-df.no-compression.csv                          30,907                      1.324               23,343      text
-df.snappy.parquet                               2,287                      0.212               10,802     binary      fastparquet, python-snappy
-df.no-compression.parquet                       2,579                      0.266                9,712     binary      fastparquet
-df.brotli.parquet                               1,892                      0.316                5,984     binary      fastparquet, brotli
-df.gzip.parquet                                 1,911                      0.421                4,539     binary      fastparquet
-df.gzip.csv                                     5,156                      2.345                2,198      text
-df.gzip.json                                   10,150                      6.522                1,556      text
-=========================  ==========================  =========================  ===================  =============  ==========================
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
+Serialization File           Serialized DF Size (KBs)    Serialization Speed (s)    Size/Speed (KB/s)   Format Type    Applicability   Extra Dependencies
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
+df.no-compression.feather                      38,187                      0.353              108,106     binary          limited      pyarrow (100MB+! Ugh!)
+df.no-compression.json                         58,880                      0.796               73,960      text          universal
+df.no-compression.csv                          30,907                      3.279                9,425      text          universal
+df.snappy.parquet                               2,287                      0.268                8,538     binary           great       fastparquet, python-snappy
+df.no-compression.parquet                       2,579                      0.329                7,845     binary           great       fastparquet
+df.brotli.parquet                               1,892                      0.383                4,942     binary           great       fastparquet, brotli
+df.gzip.parquet                                 1,911                      0.501                3,814     binary           great       fastparquet
+df.gzip.csv                                     5,156                      2.729                1,890      text          universal
+df.gzip.json                                   10,150                      6.343                1,600      text          universal
+=========================  ==========================  =========================  ===================  =============  ===============  ==========================
 ```
