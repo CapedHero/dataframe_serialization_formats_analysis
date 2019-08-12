@@ -71,5 +71,4 @@ def serialize_to_brotli_parquet(df: pd.DataFrame, file_name: str) -> None:
 
 
 def serialize_to_uncompressed_feather(df: pd.DataFrame, file_name: str) -> None:
-    # O FUCK! Tutaj dochodzi "pyarrow" jako dependency! A to waży niemało!
     df.to_feather(SERIALIZED_DATAFRAMES_DIR / file_name)
