@@ -44,13 +44,7 @@ def _build_df_serializations_pipeline() -> List[PipelineItem]:
         # JSON
         PipelineItem(df_serializers.serialize_to_uncompressed_json, "df.no-compression.json"),
         PipelineItem(df_serializers.serialize_to_gzipped_json, "df.gzip.json"),
-        # Parquet
-        PipelineItem(df_serializers.serialize_to_uncompressed_parquet, "df.no-compression.parquet"),
-        PipelineItem(df_serializers.serialize_to_gzipped_parquet, "df.gzip.parquet"),
-        PipelineItem(df_serializers.serialize_to_brotli_parquet, "df.brotli.parquet"),
-        PipelineItem(df_serializers.serialize_to_snappy_parquet, "df.snappy.parquet"),
-        # Feather
-        PipelineItem(df_serializers.serialize_to_uncompressed_feather, "df.no-compression.feather"),
+
         # YAML
         # ====
         # Note that YAML serialization is disabled by default. It is because
@@ -58,6 +52,17 @@ def _build_df_serializations_pipeline() -> List[PipelineItem]:
         # of magnitude than the slowest alternative!
         #
         # PipelineItem(df_serializers.serialize_to_uncompressed_yaml, "df.no-compression.yaml"),
+
+        # Pickle
+        PipelineItem(df_serializers.serialize_to_uncompressed_pickle, "df.no-compression.pickle"),
+        PipelineItem(df_serializers.serialize_to_gzipped_pickle, "df.gzip.pickle"),
+        # Parquet
+        PipelineItem(df_serializers.serialize_to_uncompressed_parquet, "df.no-compression.parquet"),
+        PipelineItem(df_serializers.serialize_to_gzipped_parquet, "df.gzip.parquet"),
+        PipelineItem(df_serializers.serialize_to_brotli_parquet, "df.brotli.parquet"),
+        PipelineItem(df_serializers.serialize_to_snappy_parquet, "df.snappy.parquet"),
+        # Feather
+        PipelineItem(df_serializers.serialize_to_uncompressed_feather, "df.no-compression.feather"),
     ]
     return pipeline
 

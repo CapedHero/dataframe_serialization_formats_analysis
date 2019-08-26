@@ -41,7 +41,19 @@ def serialize_to_gzipped_json(df: pd.DataFrame, file_name: str) -> None:
 def serialize_to_uncompressed_yaml(df: pd.DataFrame, file_name: str) -> None:
     with open(SERIALIZED_DATAFRAMES_DIR / file_name, "w") as file:
         yaml.dump(df.to_dict(orient="records"), file, default_flow_style=False)
-        # yaml.dump({"result": df.to_dict(orient="records")}, file, default_flow_style=False)
+
+
+##########
+# Pickle #
+##########
+
+
+def serialize_to_uncompressed_pickle(df: pd.DataFrame, file_name: str) -> None:
+    df.to_pickle(SERIALIZED_DATAFRAMES_DIR / file_name, compression=None)
+
+
+def serialize_to_gzipped_pickle(df: pd.DataFrame, file_name: str) -> None:
+    df.to_pickle(SERIALIZED_DATAFRAMES_DIR / file_name, compression="gzip")
 
 
 ###########

@@ -29,6 +29,18 @@ df.no-compression.yaml:
   extra_dependencies: PyYAML
   applicability: universal
 
+# Pickle
+
+df.no-compression.pickle:
+  format_type: binary
+  extra_dependencies: ""
+  applicability: ONLY Python
+
+df.gzip.pickle:
+  format_type: binary
+  extra_dependencies: ""
+  applicability: ONLY Python
+
 # Parquet
 
 df.no-compression.parquet:
